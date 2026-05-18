@@ -23,6 +23,16 @@ import org.eclipse.eef.EEFWidgetAction;
  * @author mbats
  */
 public interface IEEFListController extends IEEFOnClickController {
+
+	/**
+	 * Sets the enablement of action on selection.
+	 *
+	 * @param isEnabled
+	 *            <code>true</code> when the widget should have its default behavior, <code>false</code> when the widget
+	 *            should be in a read only mode.
+	 */
+	void setEnabled(boolean isEnabled);
+
 	/**
 	 * Register a consumer which will be called with the new value of the text when it will change.
 	 *

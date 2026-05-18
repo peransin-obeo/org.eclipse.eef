@@ -570,7 +570,8 @@ public class EEFTextLifecycleManager extends AbstractEEFWidgetLifecycleManager {
 	protected void setEnabled(boolean isEnabled) {
 		if (!this.text.isDisposed()) {
 			this.text.setEditable(isEnabled);
-			this.text.setEnabled(isEnabled);
+			// text must not be disabled.
+			// User need to scroll for text area or copy content.
 			this.text.setBackground(this.getBackgroundColor(isEnabled));
 			this.text.setForeground(this.getForegroundColor(isEnabled));
 		}

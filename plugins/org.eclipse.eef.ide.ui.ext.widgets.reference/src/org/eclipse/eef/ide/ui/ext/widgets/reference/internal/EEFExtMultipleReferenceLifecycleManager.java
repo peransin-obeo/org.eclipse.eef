@@ -43,6 +43,7 @@ import org.eclipse.sirius.common.interpreter.api.IVariableManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
@@ -95,6 +96,11 @@ public class EEFExtMultipleReferenceLifecycleManager extends AbstractEEFExtRefer
 	protected ButtonSelectionListener downButtonListener;
 
 	/**
+	 * The default background color of the text field.
+	 */
+	private Color defaultBackgroundColor;
+
+	/**
 	 * The constructor.
 	 *
 	 * @param description
@@ -124,6 +130,7 @@ public class EEFExtMultipleReferenceLifecycleManager extends AbstractEEFExtRefer
 	@Override
 	protected void createMainControl(Composite parent, IEEFFormContainer formContainer) {
 		this.widgetFactory = formContainer.getWidgetFactory();
+		defaultBackgroundColor = parent.getBackground();
 
 		Composite referenceComposite = this.widgetFactory.createFlatFormComposite(parent);
 		GridLayout referenceGridLayout = new GridLayout(2, false);
@@ -394,12 +401,32 @@ public class EEFExtMultipleReferenceLifecycleManager extends AbstractEEFExtRefer
 	protected void setEnabled(boolean isEnabled) {
 		super.setEnabled(isEnabled);
 
+		if (this.tableViewer != null && this.tableViewer.getTable() != null && !this.tableViewer.getTable().isDisposed()) {
+			// Background color is handled like List widget
+			this.tableViewer.getTable().setBackground(this.getBackgroundColor(isEnabled));
+		}
 		if (this.upButton != null && !this.upButton.isDisposed()) {
 			this.upButton.setEnabled(isEnabled);
 		}
 		if (this.downButton != null && !this.downButton.isDisposed()) {
 			this.downButton.setEnabled(isEnabled);
 		}
+	}
+
+	/**
+	 * Get the background color according to the current valid style.
+	 *
+	 * @param isEnabled
+	 *            <code>true</code> if the widget is enabled, <code>false</code> otherwise
+	 *
+	 * @return The background color to use in the text field.
+	 */
+	private Color getBackgroundColor(boolean isEnabled) {
+		Color color = defaultBackgroundColor;
+		if (!isEnabled) {
+			color = widgetFactory.getColors().getInactiveBackground();
+		}
+		return color;
 	}
 
 	/**

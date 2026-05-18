@@ -93,7 +93,7 @@ public class EEFListLifecycleManager extends AbstractEEFWidgetLifecycleManager {
 	/**
 	 * The listener used to run the onClick expression when the user will click on the table.
 	 */
-	private SelectionListener tableSelectionListener;
+	private EEFTableSelectionListener tableSelectionListener;
 
 	/**
 	 * The constructor.
@@ -178,6 +178,7 @@ public class EEFListLifecycleManager extends AbstractEEFWidgetLifecycleManager {
 
 		final int clientWidth = scrolledComposite.getClientArea().width;
 		this.tableViewer.getTable().setSize(clientWidth, Math.max(TABLE_MINIMAL_HEIGHT, widgetHeight));
+		tableViewer.getTable().setBackground(defaultBackgroundColor);
 
 		scrolledComposite.setExpandHorizontal(true);
 		scrolledComposite.setAlwaysShowScrollBars(true);
@@ -278,7 +279,8 @@ public class EEFListLifecycleManager extends AbstractEEFWidgetLifecycleManager {
 	protected void setEnabled(boolean isEnabled) {
 		if (this.tableViewer != null && this.tableViewer.getTable() != null && !this.tableViewer.getTable().isDisposed()) {
 			this.tableViewer.getTable().setBackground(this.getBackgroundColor(isEnabled));
-			this.tableViewer.getTable().setEnabled(isEnabled);
+			// tableViewer is not disabled so user can scroll.
+			controller.setEnabled(isEnabled);
 		}
 		this.actionButtons.stream().filter(actionButton -> !actionButton.getButton().isDisposed())
 				.forEach(actionButton -> actionButton.setEnabled(isEnabled));

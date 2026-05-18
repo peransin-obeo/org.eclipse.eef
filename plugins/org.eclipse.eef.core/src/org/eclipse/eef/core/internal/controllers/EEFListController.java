@@ -48,6 +48,11 @@ public class EEFListController extends AbstractEEFOnClickController implements I
 	private Consumer<Object> newValueConsumer;
 
 	/**
+	 * Enable flag to drive on-click.
+	 */
+	private boolean enabled = true;
+
+	/**
 	 * The constructor.
 	 *
 	 * @param description
@@ -128,6 +133,29 @@ public class EEFListController extends AbstractEEFOnClickController implements I
 
 			EvalFactory.of(this.interpreter, variables).logIfBlank(eAttribute).call(expression);
 		});
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.eef.core.api.controllers.IEEFListController#setEnabled(boolean)
+	 */
+	@Override
+	public void setEnabled(boolean isEnabled) {
+		this.enabled = isEnabled;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see org.eclipse.eef.core.api.controllers.AbstractEEFOnClickController#onClick(java.lang.Object,
+	 *      java.lang.String)
+	 */
+	@Override
+	public void onClick(Object element, String onClickEventKind) {
+		if (enabled) {
+			super.onClick(element, onClickEventKind);
+		}
 	}
 
 	/**
