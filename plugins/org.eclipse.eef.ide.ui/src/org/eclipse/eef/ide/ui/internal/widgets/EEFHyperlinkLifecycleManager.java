@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2016, 2018 Obeo.
+ * Copyright (c) 2016, 2026 Obeo.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -103,7 +103,7 @@ public class EEFHyperlinkLifecycleManager extends AbstractEEFWidgetLifecycleMana
 	 * {@inheritDoc}
 	 *
 	 * @see org.eclipse.eef.ide.ui.api.widgets.AbstractEEFWidgetLifecycleManager#createMainControl(org.eclipse.swt.widgets.Composite,
-	 *          org.eclipse.eef.common.ui.api.IEEFFormContainer)
+	 *      org.eclipse.eef.common.ui.api.IEEFFormContainer)
 	 */
 	@Override
 	protected void createMainControl(Composite parent, IEEFFormContainer formContainer) {
@@ -161,6 +161,8 @@ public class EEFHyperlinkLifecycleManager extends AbstractEEFWidgetLifecycleMana
 			GridLayout layout = new GridLayout(this.description.getActions().size(), true);
 			// hyperlinkComposite already provide vertical and horizontal spacing.
 			layout.marginHeight = 0;
+			layout.marginWidth = 0;
+
 			buttons.setLayout(layout);
 
 			// Buttons are visible only if an action is defined

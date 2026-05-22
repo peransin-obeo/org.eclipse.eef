@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2016, 2018 Obeo.
+ * Copyright (c) 2016, 2026 Obeo.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -50,15 +50,16 @@ import org.eclipse.swt.widgets.Table;
  * @author sbegaudeau
  */
 public class EEFListLifecycleManager extends AbstractEEFWidgetLifecycleManager {
+
 	/**
 	 * Default height.
 	 */
 	private static final int DEFAULT_HEIGHT = 34;
 
 	/**
-	 * Minimal height of the table widget.
+	 * Minimal height of the table widget. 5 Action buttons and almost 7 lines.
 	 */
-	private static final int TABLE_MINIMAL_HEIGHT = 100;
+	private static final int TABLE_MINIMAL_HEIGHT = 140; // Consistent with EEFExtMultipleReferenceLifecycleManager
 
 	/**
 	 * The description.
@@ -127,6 +128,9 @@ public class EEFListLifecycleManager extends AbstractEEFWidgetLifecycleManager {
 		// this is the parent composite
 		Composite list = widgetFactory.createFlatFormComposite(parent);
 		GridLayout layout = new GridLayout(2, false);
+		layout.marginWidth = 0;
+		layout.marginHeight = 0;
+
 		list.setLayout(layout);
 
 		GridData gridData = new GridData(SWT.FILL, SWT.CENTER, true, false);
@@ -152,6 +156,7 @@ public class EEFListLifecycleManager extends AbstractEEFWidgetLifecycleManager {
 		GridData gridData = new GridData();
 		gridData.grabExcessHorizontalSpace = true;
 		gridData.horizontalAlignment = SWT.FILL;
+		gridData.horizontalIndent = VALIDATION_MARKER_OFFSET;
 		scrolledComposite.setLayoutData(gridData);
 
 		// CHECKSTYLE:OFF
@@ -197,7 +202,11 @@ public class EEFListLifecycleManager extends AbstractEEFWidgetLifecycleManager {
 		gridData.verticalAlignment = SWT.BEGINNING;
 		buttons.setLayoutData(gridData);
 
-		buttons.setLayout(new GridLayout(1, false));
+		GridLayout layout = new GridLayout(1, false);
+		layout.marginWidth = 0;
+		layout.marginHeight = 0;
+
+		buttons.setLayout(layout);
 
 		// Buttons are visible only if an action is defined
 		for (EEFWidgetAction action : this.description.getActions()) {

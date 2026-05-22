@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2016, 2022 Obeo.
+ * Copyright (c) 2016, 2026 Obeo.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -61,9 +61,9 @@ import org.eclipse.swt.widgets.Table;
 public class EEFExtMultipleReferenceLifecycleManager extends AbstractEEFExtReferenceLifecycleManager {
 
 	/**
-	 * Minimal height of the table widget.
+	 * Minimal height of the table widget. 5 Action buttons and almost 7 lines.
 	 */
-	private static final int TABLE_MINIMAL_HEIGHT = 150;
+	private static final int TABLE_MINIMAL_HEIGHT = 140; // Consistent with EEFListLifecycleManager
 
 	/**
 	 * The table viewer.
@@ -134,6 +134,10 @@ public class EEFExtMultipleReferenceLifecycleManager extends AbstractEEFExtRefer
 
 		Composite referenceComposite = this.widgetFactory.createFlatFormComposite(parent);
 		GridLayout referenceGridLayout = new GridLayout(2, false);
+		referenceGridLayout.marginHeight = 0;
+		referenceGridLayout.marginWidth = 0;
+		// Table border need an extra pixel.
+		referenceGridLayout.marginBottom = 1;
 		referenceComposite.setLayout(referenceGridLayout);
 
 		GridData referenceCompositeGridData = new GridData(SWT.FILL, SWT.CENTER, true, false);
@@ -148,6 +152,8 @@ public class EEFExtMultipleReferenceLifecycleManager extends AbstractEEFExtRefer
 
 		GridLayout buttonCompositeGridLayout = new GridLayout(1, false);
 		buttonCompositeGridLayout.marginHeight = 0;
+		buttonCompositeGridLayout.marginWidth = 0;
+
 		buttonsComposite.setLayout(buttonCompositeGridLayout);
 
 		this.createButtons(buttonsComposite);
@@ -200,6 +206,7 @@ public class EEFExtMultipleReferenceLifecycleManager extends AbstractEEFExtRefer
 		gridData.grabExcessHorizontalSpace = true;
 		gridData.horizontalAlignment = SWT.FILL;
 		gridData.verticalAlignment = SWT.BEGINNING;
+		gridData.horizontalIndent = VALIDATION_MARKER_OFFSET;
 		scrolledComposite.setLayoutData(gridData);
 
 		// CHECKSTYLE:OFF
@@ -210,7 +217,6 @@ public class EEFExtMultipleReferenceLifecycleManager extends AbstractEEFExtRefer
 		this.tableViewer = new TableViewer(table);
 
 		GridData tableGridData = new GridData(SWT.FILL, SWT.TOP, true, false, 1, 1);
-		tableGridData.horizontalIndent = VALIDATION_MARKER_OFFSET;
 		this.tableViewer.getTable().setLayoutData(tableGridData);
 
 		this.composedAdapterFactory = new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);

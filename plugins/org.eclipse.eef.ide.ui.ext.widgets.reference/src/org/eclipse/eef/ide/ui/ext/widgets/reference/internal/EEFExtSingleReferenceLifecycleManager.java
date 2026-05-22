@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2016, 2022 Obeo.
+ * Copyright (c) 2016, 2026 Obeo.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -101,6 +101,10 @@ public class EEFExtSingleReferenceLifecycleManager extends AbstractEEFExtReferen
 		GridLayout gridLayout = new GridLayout(3, false);
 		gridLayout.verticalSpacing = 0;
 		gridLayout.marginHeight = 0;
+		// Keep left margin to align icon to other widgets (Lists, text fields and areas mainly).
+		gridLayout.marginLeft = gridLayout.marginWidth;
+		gridLayout.marginWidth = 0;
+
 		referenceComposite.setLayout(gridLayout);
 
 		GridData referenceCompositeGridData = new GridData(SWT.FILL, SWT.CENTER, true, false);
@@ -130,7 +134,11 @@ public class EEFExtSingleReferenceLifecycleManager extends AbstractEEFExtReferen
 	 */
 	@Override
 	protected void createButtons(Composite parent) {
-		parent.setLayout(new GridLayout(getButtonsNumber(), true));
+		GridLayout layout = new GridLayout(getButtonsNumber(), true);
+		layout.marginHeight = 0;
+		layout.marginWidth = 0;
+
+		parent.setLayout(layout);
 		if (!this.eReference.isContainment()) {
 			Image browseImage = ExtendedImageRegistry.INSTANCE
 					.getImage(EEFExtReferenceUIPlugin.getPlugin().getImage(EEFExtReferenceUIPlugin.Implementation.BROWSE_ICON_PATH));

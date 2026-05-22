@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015, 2018 Obeo.
+ * Copyright (c) 2015, 2026 Obeo.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -126,7 +126,11 @@ public class EEFContainerLifecycleManager implements IEEFLifecycleManager {
 		}
 
 		GridLayout compositeLayout = new GridLayout(numColumns, makeColumnsEqualWidth);
-		compositeLayout.marginWidth = 1;
+		compositeLayout.marginWidth = 0;
+		compositeLayout.marginHeight = 0;
+		compositeLayout.horizontalSpacing = 5 // Default margin
+				* 2 // section border + widget border
+				* 2; // left + right
 
 		composite.setLayout(compositeLayout);
 
@@ -140,6 +144,12 @@ public class EEFContainerLifecycleManager implements IEEFLifecycleManager {
 
 			// Three columns: label, help, widget
 			GridLayout columnLayout = new GridLayout(3, false);
+			columnLayout.marginWidth = 0;
+			columnLayout.marginHeight = 0;
+			// Text fields and areas need a special pixel.
+			// Their border is drawn out of bounds.
+			columnLayout.marginRight = 1;
+
 			column.setLayout(columnLayout);
 
 			// Pick the right controls for the given column index in the controls flat list
