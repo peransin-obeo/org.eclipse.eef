@@ -148,6 +148,7 @@ public abstract class AbstractEEFWidgetLifecycleManager extends AbstractEEFLifec
 			this.help.setLayoutData(new GridData(this.getLabelVerticalAlignment()));
 			this.help.setToolTipText(""); //$NON-NLS-1$
 		}
+		this.help.setBackground((Color) null);
 
 		// The main control (delegated to the concrete Lifecycle Manager)
 		this.createMainControl(parent, formContainer);
